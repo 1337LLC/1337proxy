@@ -1,4 +1,4 @@
-name = "pr1337proxy"
+name = "1337proxy"
 main = "src/server-workers.js"
 usage_model = "bundled"
 compatibility_date = "2023-06-19"
@@ -15,7 +15,7 @@ WENV = "dev"
 #------PROD------#
 ##################
 [env.prod]
-name = "ken"
+name = "1337proxy"
 minify = true
 routes = [
 
@@ -23,7 +23,7 @@ routes = [
 # vars are not inherited
 # workers/platform/environment-variables#environment-variables-via-wrangler
 [env.prod.vars]
-LOG_LEVEL = "info"
+LOG_LEVEL = "debug"
 WENV = "prod"
 
 ##################
