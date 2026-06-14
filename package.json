@@ -6,8 +6,7 @@
   "description": "Serverless H2/WebSockets to TCP proxy built for Rethink DNS + Firewall Android app.",
   "main": "",
   "type": "module",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/serverless-proxy/serverless-proxy.git"
@@ -16,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/serverless-proxy/serverless-proxy/issues"
   },
-  "homepage": "https://github.com/serverless-proxy"
+  "homepage": "https://github.com/serverless-proxy",
+  "devDependencies": {
+    "wrangler": "^4.100.0"
+  }
 }

@@ -1,4 +1,4 @@
-name = "proxy"
+name = "pr1337proxy"
 main = "src/server-workers.js"
 usage_model = "bundled"
 compatibility_date = "2023-06-19"
@@ -18,8 +18,7 @@ WENV = "dev"
 name = "ken"
 minify = true
 routes = [
-  "ken.rethinkdns.com/*",
-  "ken.bravedns.com/*",
+
 ]
 # vars are not inherited
 # workers/platform/environment-variables#environment-variables-via-wrangler
