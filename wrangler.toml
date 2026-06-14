@@ -1,4 +1,4 @@
-name = "pr1337proxy"
+name = "1337proxy"
 main = "src/server-workers.js"
 usage_model = "bundled"
 compatibility_date = "2023-06-19"
