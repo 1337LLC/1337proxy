@@ -1,0 +1,56 @@
+name: ⛅ Keys
+on:
+  schedule:
+    # at 12:53 on 2nd of Feb, June, Oct: crontab.guru/#53_12_2_2,6,10_*
+    - cron: '53 12 2 2,6,10 *'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'wrangler env to deploy to'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+        - dev
+        - prod
+
+jobs:
+  secrets:
+    name: 🏇 Secrets
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: 🛸 Checkout
+        uses: actions/checkout@v3.3.0
+        with:
+          ref: ${{ env.GIT_REF }}
+          fetch-depth: 0
+
+      - name: 🚚 Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: 🏗 Wrangler
+        run: npm i wrangler@3 -g
+
+      # ref: github.com/cloudflare/wrangler-action/blob/master/entrypoint.sh
+      - name: 🚨 Prod?
+        if: github.event.inputs.environment == 'prod' || github.event.schedule == '53 12 2 2,6,10 *'
+        run: node ./src/node/prodkeys.js
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+
+      - name: 📚 Dev?
+        if: github.event.inputs.environment == 'dev'
+        run: node ./src/node/devkeys.js
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+
+      - name: ⛳️ Notice
+        # docs.github.com/en/actions/learn-github-actions/expressions
+        if: ${{ success() }}
+        run: |
+          echo "::notice::new keys set"
